@@ -1,14 +1,20 @@
-version: '3'
+version: '3.8'
+
 services:
-  frontend:
-    image: xinnanm/frontend:latest
+  app:
+    image: inventory-service:3
     ports:
-      - "80:80"
-  order-service:
-    image: xinnanm/order-service:latest
-    ports:
-      - "8082:8080"
-  inventory-service:
-    image: xinnanm/inventory-service:latest
-    ports:
-      - "8081:8080"
+      - "8080:8080"
+    environment:
+      - AWS_ACCESS_KEY_ID=AKIAXLBX4MJ5Y4KV62GS
+      - AWS_SECRET_ACCESS_KEY=g/WvDglID+gt6creo7X9O/n2r+I5J1rXntbmB1fUd
+      - SPRING_DATASOURCE_URL=jdbc:mysql://urban-threads.chlh1miphgec.us-east-2.rds.amazonaws.com:3306/ecommerce-inventory-service
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=Group3Passcode
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+      - LOGGING_LEVEL_ORG_HIBERNATE_SQL=DEBUG
+      - LOGGING_LEVEL_ORG_HIBERNATE_TYPE_DESCRIPTOR_SQL_BASICBINDER=TRACE
+      - LOGGING_LEVEL_COM_ZAXXER_HIKARI=DEBUG
+      - AWS_REGION=us-east-2
+      - AWS_S3_BUCKET_NAME=urban-threads
