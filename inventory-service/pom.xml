@@ -57,6 +57,11 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 			<version>3.1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-secretsmanager</artifactId>
+			<version>1.12.118</version> <!-- Use the latest version available -->
+		</dependency>
 
 
 
@@ -77,6 +82,7 @@
                     <target>17</target>
                 </configuration>
             </plugin>
+
         </plugins>
 	</build>
 
