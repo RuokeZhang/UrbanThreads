@@ -1,0 +1,8 @@
+
+<
+java:S1170"!Make this final field static too.(”ç¸¶øÿÿÿÿ
+Z
+java:S1854X"DRemove this useless assignment to local variable "presignedUrlsMap".(€£î
+K
+java:S1481X"5Remove this unused "presignedUrlsMap" local variable.(€£î
+E	java:S106`"+Replace this use of System.out by a logger.(ö„åûÿÿÿÿ

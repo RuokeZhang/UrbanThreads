@@ -34,7 +34,7 @@ public class InventoryController {
     @PostConstruct
     public void loadItems() {
         List<Item> items = new ArrayList<>();
-
+        items.add(new Item(1L, "Nike Dress Shirt", "Classic white Nike dress shirt.", new BigDecimal("59.99"), 50, "Shirts"));
     }
 
 
