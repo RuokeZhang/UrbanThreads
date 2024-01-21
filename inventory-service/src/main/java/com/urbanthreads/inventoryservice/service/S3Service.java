@@ -22,44 +22,22 @@ import java.time.Duration;
 import java.util.*;
 
 @Service
-public class S3Service {
+public crulass S3Service {
 
     private S3Client s3Client;
     private S3Presigner s3Presigner;
-    private final String bucketName = "urban-threads";
+    private final String bucketName = "urbanthreads3";
 
     @PostConstruct
     public void init() {
-        // Define the ARN of the IAM role you want to assume
-        String roleArn = "arn:aws:iam::148671556211:role/urban-threads-s3";
-
-        // Specify a unique role session name for the assumed session
-        String roleSessionName = "UrbanThreadsSession"; // Replace with your desired session name
-
-        // Create an AssumeRoleRequest with the role ARN and session name
-        AssumeRoleRequest assumeRoleRequest = AssumeRoleRequest.builder()
-                .roleArn(roleArn)
-                .roleSessionName(roleSessionName)
-                .build();
-
-        // Create a credentials provider that assumes the IAM role
-        StsAssumeRoleCredentialsProvider roleCredentialsProvider = StsAssumeRoleCredentialsProvider.builder()
-                .stsClient(StsClient.builder()
-                        .region(Region.US_EAST_2) // Specify the AWS region for the STS client
-                        .build())
-                .refreshRequest(assumeRoleRequest) // Use the AssumeRoleRequest
-                .build();
-
-        // Use the assumed role credentials provider to create the S3 client
+        // Use the default credentials provider chain to create the S3 client
         s3Client = S3Client.builder()
                 .region(Region.US_EAST_2) // Change to your desired region
-                .credentialsProvider(roleCredentialsProvider)
                 .build();
 
-        // Use the assumed role credentials provider to create the S3 presigner
+        // Use the default credentials provider chain to create the S3 presigner
         s3Presigner = S3Presigner.builder()
                 .region(Region.US_EAST_2) // Replace with your region
-                .credentialsProvider(roleCredentialsProvider)
                 .build();
     }
     // Generates a list of presigned URLs for uploading images
