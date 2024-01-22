@@ -22,7 +22,7 @@ import java.time.Duration;
 import java.util.*;
 
 @Service
-public crulass S3Service {
+public class S3Service {
 
     private S3Client s3Client;
     private S3Presigner s3Presigner;
