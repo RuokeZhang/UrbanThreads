@@ -22,11 +22,26 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.graphql-java-kickstart</groupId>
-			<artifactId>graphql-spring-boot-starter</artifactId>
-			<version>14.0.0</version>
-		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.graphql-java-kickstart/graphiql-spring-boot-starter -->
+<dependency>
+    <groupId>com.graphql-java-kickstart</groupId>
+    <artifactId>graphiql-spring-boot-starter</artifactId>
+    <version>11.1.0</version>
+</dependency>
+
+
+
+		<!-- https://mvnrepository.com/artifact/com.graphql-java-kickstart/graphql-java-tools -->
+<dependency>
+    <groupId>com.graphql-java-kickstart</groupId>
+    <artifactId>graphql-java-tools</artifactId>
+    <version>11.1.0</version>
+</dependency>
+
+
+
+
+
 
 		<!-- testing facilities -->
 		<dependency>
@@ -96,11 +111,6 @@
                     <target>17</target>
                 </configuration>
             </plugin>
-			<plugin>
-        <artifactId>kotlin-maven-plugin</artifactId>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <version>1.9.22</version>
-    </plugin>
 
         </plugins>
 	</build>
