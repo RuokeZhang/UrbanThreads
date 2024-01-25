@@ -1,9 +1,9 @@
 package com.urbanthreads.inventoryservice.other;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.persistence.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 

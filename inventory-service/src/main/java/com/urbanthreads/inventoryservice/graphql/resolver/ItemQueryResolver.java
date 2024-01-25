@@ -1,23 +1,21 @@
 package com.urbanthreads.inventoryservice.graphql.resolver;
 
-import com.urbanthreads.inventoryservice.model.Image;
 import com.urbanthreads.inventoryservice.model.Item;
 import com.urbanthreads.inventoryservice.repo.ItemRepository;
 import com.urbanthreads.inventoryservice.service.InventoryService;
 import com.urbanthreads.inventoryservice.service.S3Service;
 
-import java.util.List;
-import java.util.Optional;
+import graphql.kickstart.tools.GraphQLQueryResolver;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import graphql.kickstart.tools.GraphQLQueryResolver;
-import lombok.NonNull;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ItemQueryResolver implements GraphQLQueryResolver {
@@ -35,11 +33,18 @@ public class ItemQueryResolver implements GraphQLQueryResolver {
 
     }
 
-    public Item itemById(@NonNull Long id) {
+    public Item itemById(int id) {
         return itemRepository.findById(id).orElse(null);
     }
 
-    public Page<Item> allItems(int pageNumber, int sizeOfPage) {
+    public List<Item> allItems() {
+        List<Item> items = itemRepository.findAll();
+        System.out.println("Number of items found: {}"+items.size());
+        return items;
+    }
+
+
+    public Page<Item> items(int pageNumber, int sizeOfPage) {
         Pageable pageable = PageRequest.of(pageNumber, sizeOfPage); // you should set table sort ordering here
         Optional<Page<Item>> optionalPage = inventoryService.itemPage(pageable); // returns Page<Item>
         Page<Item> page = optionalPage.get();

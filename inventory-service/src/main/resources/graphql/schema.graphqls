@@ -1,26 +1,32 @@
 # src/main/resources/graphql/schema.graphqls
 
 type Item {
-    id: Long!
+    id: Int!
+    itemName: String!
+    description: String
+    price: Float!
+    stockQuantity: Int!
+    category: String
+}
+
+type Query {
+    itemById(id: Int!): Item
+    allItems: [Item]
+    itemsByCategory(category: String!): [Item]
+}
+
+type Mutation {
+    addItem(item: ItemInput!): Item
+    updateItemStock(id: ID!, stockQuantity: Int!): Item
+}
+
+input ItemInput {
     itemName: String!
     description: String!
     price: Float!
     stockQuantity: Int!
     category: String
     images: [String]
-}
-
-type Query {
-    itemById(id: ID!): Item
-    items(pageNumber: Int!, sizeOfPage: Int!): [Item] # Adjust according to your needs
-    itemsByCategory(category: String!): [Item]
-    // Add other queries as needed
-}
-
-type Mutation {
-    addItem(item: ItemInput!): Item
-    updateItemStock(id: ID!, stockQuantity: Int!): Item
-    // Add other mutations as needed
 }
 
 

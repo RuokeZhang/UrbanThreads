@@ -4,18 +4,14 @@ package com.urbanthreads.inventoryservice.service;
 import com.urbanthreads.inventoryservice.model.Item;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.*;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
-import software.amazon.awssdk.services.sts.StsClient;
-import software.amazon.awssdk.services.sts.auth.StsAssumeRoleCredentialsProvider;
-import software.amazon.awssdk.services.sts.model.AssumeRoleRequest;
+import software.amazon.awssdk.services.s3.model.*;
 
 import java.net.URL;
 import java.time.Duration;
@@ -41,14 +37,14 @@ public class S3Service {
                 .build();
     }
     // Generates a list of presigned URLs for uploading images
-    public Set<String> generatePresignedUrls(Set<String> objectKeys, Long id) {
+    public Set<String> generatePresignedUrls(Set<String> objectKeys, int i) {
         Set<String> presignedUrls = new HashSet<>();
 
             for (String objectKey : objectKeys) {
                 PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
                         .putObjectRequest(PutObjectRequest.builder()
                                 .bucket(bucketName)
-                                .key(id + "/" + objectKey)
+                                .key(i + "/" + objectKey)
                                 .contentType("image/png") // This will match any image type
                                 .build())
                         .signatureDuration(Duration.ofMinutes(60)) // The URL will expire in 60 minutes
@@ -63,7 +59,7 @@ public class S3Service {
     }
 
     public void generatePresignedUrlsForItems(List<Item> items) {
-        Map<Long, Set<String>> presignedUrlsMap = new HashMap<>();
+        Map<Integer, Set<String>> presignedUrlsMap = new HashMap<>();
 
         for (Item item : items) {
             // Retrieve the list of image keys for each itemId

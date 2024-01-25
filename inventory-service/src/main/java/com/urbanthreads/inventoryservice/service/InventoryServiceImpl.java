@@ -5,19 +5,15 @@ import com.urbanthreads.inventoryservice.model.Item;
 import com.urbanthreads.inventoryservice.repo.ItemRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.*;
-import software.amazon.awssdk.services.s3.S3Client;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
-
-import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -71,7 +67,7 @@ public class InventoryServiceImpl implements InventoryService{
 
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public Optional<List<ItemDTO>> itemsByIds(List<Long> ids) {
+    public Optional<List<ItemDTO>> itemsByIds(List<Integer> ids) {
         // S3 Bucket
         List<Item> items = repo.findAllById(ids);
         List<ItemDTO> itemDTOS = new ArrayList<>();
@@ -83,14 +79,14 @@ public class InventoryServiceImpl implements InventoryService{
 
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public Optional<Map<Long, Integer>> stockQuantity(List<Long> ids) {
+    public Optional<Map<Integer, Integer>> stockQuantity(List<Integer> ids) {
         String hql = "SELECT e.id, e.stockQuantity FROM Item e WHERE e.id IN (:listOfIds)";
         TypedQuery<Object[]> query = entityManager.createQuery(hql, Object[].class);
         query.setParameter("listOfIds",ids);
         List<Object[]> results = query.getResultList();
-        Map<Long,Integer> map = new HashMap<>();
+        Map<Integer,Integer> map = new HashMap<>();
         for (Object[] result : results) {
-            Long id = (Long) result[0];
+            int id = (int) result[0];
             int stockQuantity = (int) result[1];
             map.put(id,stockQuantity);
         }
@@ -100,9 +96,9 @@ public class InventoryServiceImpl implements InventoryService{
 
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = Exception.class)
-    public void reduceStock(Map<Long, Integer> purchaseItems) throws Exception {
+    public void reduceStock(Map<Integer, Integer> purchaseItems) throws Exception {
         String hql = "UPDATE Item e SET e.stockQuantity = e.stockQuantity - :reduceAmount WHERE e.id = :id AND e.stockQuantity >= :reduceAmount";
-        for (Map.Entry<Long, Integer> entry : purchaseItems.entrySet()) {
+        for (Map.Entry<Integer, Integer> entry : purchaseItems.entrySet()) {
             int updateCount = entityManager.createQuery(hql)
                     .setParameter("reduceAmount", entry.getValue())
                     .setParameter("id", entry.getKey())
@@ -118,7 +114,7 @@ public class InventoryServiceImpl implements InventoryService{
 
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ,rollbackFor = Exception.class)
-    public void removeItems(List<Long> ids) {
+    public void removeItems(List<Integer> ids) {
             repo.deleteAllById(ids);
     }
 
@@ -141,8 +137,10 @@ public class InventoryServiceImpl implements InventoryService{
     }
 
     @Override
-    @Transactional(isolation = Isolation.REPEATABLE_READ,rollbackFor = Exception.class)
-    public Optional<Long> editItem(ItemDTO itemDTO) {
-        return Optional.of(2l); // S3 Bucket
+    public Optional<Integer> editItem(ItemDTO item) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'editItem'");
     }
+
+
 }

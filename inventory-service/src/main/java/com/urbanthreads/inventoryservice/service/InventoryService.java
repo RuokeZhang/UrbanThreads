@@ -25,12 +25,12 @@ public interface InventoryService {
 
     Optional<Page<Item>> itemPage(Pageable pageable);
     Optional<List<ItemDTO>> itemsByName(String name);
-    Optional<List<ItemDTO>> itemsByIds(List<Long> ids);
-    Optional<Map<Long,Integer>> stockQuantity(List<Long> ids);
-    void reduceStock(Map<Long,Integer> purchaseItems) throws Exception;
-    void removeItems(List<Long> ids);
+    Optional<List<ItemDTO>> itemsByIds(List<Integer> ids);
+    Optional<Map<Integer,Integer>> stockQuantity(List<Integer> ids);
+    void reduceStock(Map<Integer,Integer> purchaseItems) throws Exception;
+    void removeItems(List<Integer> ids);
     Optional<ItemDTO> addItem(ItemDTO item);
-    Optional<Long> editItem(ItemDTO item);
+    Optional<Integer> editItem(ItemDTO item);
 
 
 }
