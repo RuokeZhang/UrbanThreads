@@ -15,18 +15,6 @@ type Query {
     itemsByCategory(category: String!): [Item]
 }
 
-type Mutation {
-    addItem(item: ItemInput!): Item
-    updateItemStock(id: ID!, stockQuantity: Int!): Item
-}
 
-input ItemInput {
-    itemName: String!
-    description: String!
-    price: Float!
-    stockQuantity: Int!
-    category: String
-    images: [String]
-}
 
 
