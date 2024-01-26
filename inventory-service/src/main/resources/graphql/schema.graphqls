@@ -1,0 +1,20 @@
+# src/main/resources/graphql/schema.graphqls
+
+type Item {
+    id: Int!
+    itemName: String!
+    description: String
+    price: Float!
+    stockQuantity: Int!
+    category: String
+}
+
+type Query {
+    itemById(id: Int!): Item
+    allItems: [Item]
+    itemsByCategory(category: String!): [Item]
+}
+
+
+
+

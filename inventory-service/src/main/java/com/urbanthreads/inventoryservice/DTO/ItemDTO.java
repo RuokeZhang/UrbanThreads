@@ -1,12 +1,8 @@
 package com.urbanthreads.inventoryservice.DTO;
 
-import com.urbanthreads.inventoryservice.model.Image;
 import com.urbanthreads.inventoryservice.model.Item;
-import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,13 +21,13 @@ public class ItemDTO {
         this.images = item.getImages();
     }
 
-    private Long id;
+    private int id;
 
     private String itemName;
 
     private String description;
 
-    private BigDecimal price;
+    private float price;
 
     private int stockQuantity;
 
