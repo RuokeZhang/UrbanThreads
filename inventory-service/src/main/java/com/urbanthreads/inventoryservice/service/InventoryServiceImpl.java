@@ -47,6 +47,7 @@ public class InventoryServiceImpl implements InventoryService{
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public Optional<Page<Item>> itemPage(Pageable pageable) {
         Page<Item> page = repo.findAll(pageable);
+        System.out.println("InventoryService.itemPage is called");
         return Optional.of(page); // S3 Bucket
     }
 
