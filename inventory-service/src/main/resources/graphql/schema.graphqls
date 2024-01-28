@@ -9,11 +9,33 @@ type Item {
     category: String
 }
 
+type ItemPage{
+    content: [Item]
+    totalElements: Int
+    totalPages: Int
+    size: Int
+    number: Int
+}
+
 type Query {
     itemById(id: Int!): Item
     allItems: [Item]
-    itemsByCategory(category: String!): [Item]
+    itemsByPage(pageNumber: Int!, sizeOfPage: Int!): ItemPage
 }
+
+input ItemInput {
+    itemName: String!
+    description: String
+    price: Float!
+    stockQuantity: Int!
+    category: String
+}
+
+type Mutation {
+    addItem(newItem: ItemInput!): Item
+}
+
+
 
 
 
