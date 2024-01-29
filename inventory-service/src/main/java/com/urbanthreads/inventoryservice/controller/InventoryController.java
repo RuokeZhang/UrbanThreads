@@ -15,6 +15,7 @@ import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.urbanthreads.inventoryservice.DTO.ItemDTO;
 import com.urbanthreads.inventoryservice.model.Item;
@@ -24,6 +25,7 @@ import com.urbanthreads.inventoryservice.repo.ItemRepository;
 import com.urbanthreads.inventoryservice.service.InventoryService;
 import com.urbanthreads.inventoryservice.service.S3Service;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
 public class InventoryController {
     private final InventoryService inventoryService;
